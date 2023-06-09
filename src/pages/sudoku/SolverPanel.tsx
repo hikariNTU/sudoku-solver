@@ -60,7 +60,7 @@ export const SolverPanel = () => {
 
   return (
     <div className="solver-panel">
-      <h3>Solver</h3>
+      <h2>Solver</h2>
       <p>
         We use <a href="https://en.wikipedia.org/wiki/Backtracking">backtracking</a> to find the
         solution from the current board. The algorithm we use can be found on Leetcode and other

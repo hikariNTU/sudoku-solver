@@ -69,6 +69,7 @@ export const SudokuGrid = () => {
             <button
               key={`${i}${j}`}
               id={generateId(i, j)}
+              aria-label={`position (${j + 1}, ${i + 1})`}
               onKeyDown={(e) => {
                 const val = numberLUT[e.code]
                 if (val) {
