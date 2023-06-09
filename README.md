@@ -7,10 +7,21 @@ A backtracking sudoku online solver with playable feature.
 ## Solver algorithm - Backtracking
 
 **Steps**
+
 - Find next empty cell
 - Try filling the empty cell value from 1 to 9 if it fit
   - If none digit can be filled, then the board is not solvable, backtracking to the next candidate
   - Else using the filled cell and start finding the next empty cell
+
+**Heuristic Mode Improvements**
+
+- Instead of finding all cells for next empty cell, pre-build an array to keep track of those initial empty.
+- For each empty cell, find all its candidate number first and store it in the array
+- When finding next empty cell, find the easiest one (least candidates) and fill it first, those easy level sudoku boards tend to contain a lot of one shot cells.
+
+Notice! Heuristic Mode only cut down a bit of calculation time. In some cases like those well crafted boards, the heuristic might be a lot slower than the default naive one depends on the actual solution.
+
+But in general, Heuristic Mode will be faster and more natural.
 
 ## What've I used in the site?
 - Typescript + Vite + React (DX first)

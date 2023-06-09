@@ -7,7 +7,7 @@ import Switch from '@/components/Switch/Switch'
 import { sleep } from '@/utils'
 
 import { Board } from './basic'
-import { solve } from './solver'
+import { advanceSolver, solve } from './solver'
 import { solverSleepState, sudokuBoardState } from './state'
 
 let solveId = 0
@@ -18,6 +18,7 @@ const ProgressiveSwitch = () => {
   return (
     <Switch
       label="Progressive"
+      title='Progressively show the process on screen by set an interval between each operations'
       checked={!!time}
       onCheckedChange={(v) => (v ? setTime(5) : setTime(0))}
     ></Switch>
@@ -26,11 +27,13 @@ const ProgressiveSwitch = () => {
 
 export const SolverPanel = () => {
   const [board, setBoard] = useRecoilState(sudokuBoardState)
+  const [isAdvanced, setIsAdvanced] = useState(false)
   const sleepTime = useRecoilValue(solverSleepState)
   const [count, setCount] = useState(0)
   const [solving, setSolving] = useState(false)
 
   const solveBoard = async () => {
+    const solver = isAdvanced ? advanceSolver : solve
     setSolving(true)
     solveId += 1
     const currentSolveId = solveId
@@ -48,7 +51,7 @@ export const SolverPanel = () => {
           return true
         }
       : undefined
-    const success = await solve(newBoard, callback)
+    const success = await solver(newBoard, callback)
     if (success) {
       setBoard(newBoard)
     } else {
@@ -80,6 +83,7 @@ export const SolverPanel = () => {
         <button onClick={solveBoard} disabled={solving}>
           Solve the Board
         </button>
+        <Switch label="Heuristic" title='Heuristic mode by sorting the candidates and fill the easier one first' checked={isAdvanced} onCheckedChange={setIsAdvanced} />
         <ProgressiveSwitch />
       </div>
       {!!sleepTime && (

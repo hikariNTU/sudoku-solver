@@ -80,6 +80,80 @@ export async function solve(board: Board, callback?: (board: Board) => Promise<u
 }
 
 /**
+ * A modified backtracking with heuristic candidate.
+ *
+ * Largely improve performance on those sparse boards that will yield a lot of error steps in naive solution
+ */
+export async function advanceSolver(b: Board, callback?: (board: Board) => Promise<unknown>) {
+  /**
+   * Step 1
+   *
+   * Keep a record on all unsolved cells and their possible candidates
+   */
+  const LUT: Record<string, number[]> = {}
+  for (const i of indices) {
+    for (const j of indices) {
+      if (!b[i][j].val) {
+        LUT[`${i}${j}`] = numbers.reduce(
+          (prev, num) => (isValidValue(b, i, j, num) ? [...prev, num] : prev),
+          [] as number[],
+        )
+      }
+    }
+  }
+
+  /**
+   * Step 2
+   *
+   * Sort the list from least candidate (easier cells) to largest
+   */
+  const orderLUT = Object.entries(LUT).map(([indices, count]) => {
+    const [i, j] = indices.split('').map((v) => +v)
+    return [i, j, count]
+  }) as [number, number, number[]][]
+  orderLUT.sort((a, b) => a[2].length - b[2].length)
+
+  function findNextEmpty() {
+    return orderLUT.find(([i, j]) => !b[i][j].val)
+  }
+
+  /**
+   * Step 3
+   *
+   * Solve it with backtracking but get the next easiest empty cell in the prepared list.
+   * And also only check the given candidates
+   */
+  async function solver() {
+    const nextEmpty = findNextEmpty()
+    if (!nextEmpty) {
+      return true
+    }
+
+    const [i, j, candidates] = nextEmpty
+    for (const val of candidates) {
+      if (isValidValue(b, i, j, val)) {
+        b[i][j].val = val
+
+        if (callback) {
+          const keepGoing = await callback(b)
+          if (!keepGoing) {
+            break
+          }
+        }
+
+        if (await solver()) {
+          return true
+        }
+      }
+      b[i][j].val = undefined
+    }
+    return false
+  }
+
+  return solver()
+}
+
+/**
  * Validate if the given board problem is valid
  * @see https://leetcode.com/problems/valid-sudoku/
  * */
