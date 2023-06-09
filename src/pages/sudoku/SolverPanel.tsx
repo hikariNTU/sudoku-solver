@@ -53,7 +53,6 @@ export const SolverPanel = () => {
       setBoard(newBoard)
     } else {
       setBoard(oldBoard)
-      console.log('Not able to solve!')
     }
     setSolving(false)
   }

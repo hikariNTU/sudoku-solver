@@ -16,7 +16,7 @@ import Toggle from '@/components/Toggle/Toggle'
 import Tooltip from '@/components/Tooltip/Tooltip'
 
 import { SolverPanel } from './SolverPanel'
-import { noteState, readBoardFromText, sudokuBoardState, sudokuSetBoardState } from './state'
+import { compactBoardSelector, noteState, sudokuBoardState, sudokuSetBoardState } from './state'
 import './sudoku.scss'
 
 const ClearAll = () => {
@@ -44,7 +44,7 @@ const ClearAll = () => {
   return (
     <button onClick={clear}>
       <TrashIcon />
-      Clear Filled
+      Clear
     </button>
   )
 }
@@ -81,12 +81,8 @@ const ToggleNote = () => {
 }
 
 const BoardReader = () => {
-  const [data, setData] = useState('')
-  const setBoard = useSetRecoilState(sudokuBoardState)
-
-  const trySet = () => {
-    setBoard(readBoardFromText(data))
-  }
+  const [board, setBoard] = useRecoilState(compactBoardSelector)
+  const [data, setData] = useState(board)
 
   return (
     <Dialog
@@ -104,8 +100,8 @@ const BoardReader = () => {
               setData(e.currentTarget.value)
             }}
             placeholder="format: 0000694500000030000004206087..."
-          ></textarea>
-          <button onClick={trySet}>Parse</button>
+          />
+          <button onClick={() => setBoard(data)}>Parse</button>
         </div>
       }
     >

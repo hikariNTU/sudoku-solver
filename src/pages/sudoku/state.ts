@@ -1,4 +1,4 @@
-import { atom } from 'recoil'
+import { DefaultValue, atom, selector } from 'recoil'
 
 import { Board, indices } from './basic'
 import { TB } from './test'
@@ -42,7 +42,7 @@ function createBoard(data: (number | string | undefined)[][]): Board {
   )
 }
 
-export function readBoardFromText(data: string): Board {
+function readBoardFromText(data: string): Board {
   const cells = data.split('')
 
   return createBoard(indices.map((j) => indices.map((i) => cells[i * 9 + j])))
@@ -66,4 +66,24 @@ export const sudokuSetBoardState = atom({
 export const noteState = atom({
   key: 'note-on',
   default: false,
+})
+
+export const compactBoardSelector = selector({
+  key: 'compact-board',
+  get: ({ get }) =>
+    get(sudokuBoardState)
+      .flatMap((v) => v)
+      .map((v) => (v.fixed ? String(v.val) : '0'))
+      .join(''),
+  set: ({ set }, newValue) => {
+    if (newValue instanceof DefaultValue) {
+      set(sudokuBoardState, newValue)
+      return
+    }
+    const data = newValue.replace(/[^0-9]/g, '')
+    if (data.length !== 81) {
+      return
+    }
+    set(sudokuBoardState, readBoardFromText(data))
+  },
 })

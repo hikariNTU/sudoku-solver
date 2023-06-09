@@ -42,7 +42,6 @@ export const SudokuGrid = () => {
         return
       }
       if (val && !isEditNote && !isValidValue(board, i, j, val)) {
-        console.log('Not valid!', { i, j, val })
         return
       }
       const newBoard = cloneDeep(board)
@@ -79,7 +78,6 @@ export const SudokuGrid = () => {
                     val,
                     e.shiftKey || e.getModifierState('CapsLock') || e.getModifierState('Shift'),
                   )
-                  console.log(notes, cell)
                 }
                 if (e.code === 'ArrowUp' && i > 0) {
                   e.preventDefault()

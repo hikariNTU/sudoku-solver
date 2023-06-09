@@ -5,7 +5,8 @@ $bd: solid #333 1px;
   display: grid;
   justify-content: center;
   grid-template-columns: repeat(9, 1fr);
-  width: min-content;
+  width: 100%;
+  max-width: calc(100vh - 4rem);
   border: 2px solid white;
 }
 
@@ -14,9 +15,14 @@ $bd: solid #333 1px;
   display: grid;
   justify-content: center;
   align-items: center;
-  width: 60px;
-  height: 60px;
+  width: 100%;
+  height: 100%;
+  // width: 60px;
+  // height: 60px;
   font-size: larger;
+  padding: 0;
+  line-height: 1;
+  aspect-ratio: 1 / 1;
   border: $bd;
   border-radius: 0;
   transition: background-color 0.1s;
@@ -50,11 +56,13 @@ $bd: solid #333 1px;
   justify-content: center;
   align-items: center;
   font-size: 12px;
-  line-height: 20px;
   color: #333;
 
   > span {
-    width: 20px;
-    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    aspect-ratio: 1 / 1;
   }
 }
