@@ -107,8 +107,8 @@ export const SudokuGrid = () => {
                 'sudoku-cell__fixed': cell.fixed,
               })}
             >
-              {cell.val && <strong>{cell.val}</strong>}
-              {!cell.val && cell.note && (
+              {cell.val ? <strong>{cell.val}</strong> : undefined}
+              {!cell.val && !!(cell.note) && (
                 <div className="sudoku-cell-note">
                   {numbers.map((val) => (
                     <span key={val}>{notes.has(val) ? val : ''}</span>
