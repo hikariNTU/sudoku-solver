@@ -135,7 +135,7 @@ export const SudokuPage = () => {
 export const Header = () => {
   return (
     <header className="Header">
-      <img src="/icon.svg" aria-hidden />
+      <img src="./icon.svg" aria-hidden />
       <h1>Sudoku Solver</h1>
       <p>A playable Sudoku solver using backtracking</p>
     </header>
