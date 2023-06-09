@@ -1,0 +1,60 @@
+$bd: solid #333 1px;
+
+.sudoku-grid {
+  grid-area: board;
+  display: grid;
+  justify-content: center;
+  grid-template-columns: repeat(9, 1fr);
+  width: min-content;
+  border: 2px solid white;
+}
+
+.sudoku-cell {
+  position: relative;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 60px;
+  font-size: larger;
+  border: $bd;
+  border-radius: 0;
+  transition: background-color 0.1s;
+
+  &__bd {
+    &-r {
+      border-right: 1px white solid;
+    }
+    &-b {
+      border-bottom: 1px white solid;
+    }
+  }
+
+  &:hover{
+    background-color: #222;
+  }
+
+  &:focus{
+    outline: solid 3px #447df7;
+    border-radius: 4px;
+    z-index: 1;
+    background-color: #09193b;
+  }
+}
+
+.sudoku-cell-note {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  line-height: 20px;
+  color: #333;
+
+  > span {
+    width: 20px;
+    height: 20px;
+  }
+}

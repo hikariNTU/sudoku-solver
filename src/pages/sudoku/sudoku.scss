@@ -1,0 +1,72 @@
+.sudoku {
+  margin-top: 2rem;
+  display: grid;
+
+  gap: 1rem;
+  align-items: flex-start;
+  grid-template-columns: 1fr;
+
+  grid-template-areas:
+    "actions"
+    "board"
+    "solver"
+    "reader";
+
+  @media screen and (min-width: 960px) {
+    grid-template-areas:
+      "actions actions"
+      "board solver"
+      "board reader";
+  }
+}
+
+.actions {
+  grid-area: actions;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.solver-panel {
+  grid-area: solver;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-inline-size: 480px;
+
+  &-buttons {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+}
+
+.reader {
+  grid-area: reader;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.Header {
+  display: grid;
+  grid-template-areas:
+    "icon title"
+    "icon desc";
+  grid-template-columns: 72px 1fr;
+  gap: 0.25rem 0.5rem;
+
+  > img {
+    grid-area: icon;
+  }
+
+  > h1 {
+    grid-area: title;
+    align-self: flex-end;
+  }
+
+  > p {
+    grid-area: desc;
+  }
+}
