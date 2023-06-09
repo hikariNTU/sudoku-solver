@@ -17,8 +17,6 @@ $bd: solid #333 1px;
   align-items: center;
   width: 100%;
   height: 100%;
-  // width: 60px;
-  // height: 60px;
   font-size: larger;
   padding: 0;
   line-height: 1;
@@ -34,6 +32,10 @@ $bd: solid #333 1px;
     &-b {
       border-bottom: 1px white solid;
     }
+  }
+
+  &__edit.sudoku-cell__fixed{
+    color: #447df7;
   }
 
   &:hover{

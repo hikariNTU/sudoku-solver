@@ -11,11 +11,11 @@ import {
 import { useKey } from 'react-use'
 
 import Dialog from '@/components/Dialog/Dialog'
-import { SudokuGrid } from '@/components/SudokuGrid'
 import Toggle from '@/components/Toggle/Toggle'
 import Tooltip from '@/components/Tooltip/Tooltip'
 
 import { SolverPanel } from './SolverPanel'
+import { SudokuGrid } from './SudokuGrid'
 import { compactBoardSelector, noteState, sudokuBoardState, sudokuSetBoardState } from './state'
 import './sudoku.scss'
 

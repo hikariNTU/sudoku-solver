@@ -18,7 +18,7 @@ const ProgressiveSwitch = () => {
   return (
     <Switch
       label="Progressive"
-      title='Progressively show the process on screen by set an interval between each operations'
+      title="Progressively show the process on screen by set an interval between each operations"
       checked={!!time}
       onCheckedChange={(v) => (v ? setTime(5) : setTime(0))}
     ></Switch>
@@ -79,27 +79,36 @@ export const SolverPanel = () => {
         </a>
         .
       </p>
+
+      <div className="solver-panel-buttons">
+        <Switch
+          label="Heuristic"
+          title="Heuristic mode by sorting the candidates and fill the easier one first"
+          checked={isAdvanced}
+          onCheckedChange={setIsAdvanced}
+        />
+        <ProgressiveSwitch />
+      </div>
+
       <div className="solver-panel-buttons">
         <button onClick={solveBoard} disabled={solving}>
           Solve the Board
         </button>
-        <Switch label="Heuristic" title='Heuristic mode by sorting the candidates and fill the easier one first' checked={isAdvanced} onCheckedChange={setIsAdvanced} />
-        <ProgressiveSwitch />
+        {!!sleepTime && (
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <button
+              onClick={() => {
+                solveId += 1
+              }}
+              disabled={!solving}
+              style={{ flex: 1 }}
+            >
+              Stop
+            </button>
+            <div>Attempts: {count}</div>
+          </div>
+        )}
       </div>
-      {!!sleepTime && (
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-          <button
-            onClick={() => {
-              solveId += 1
-            }}
-            disabled={!solving}
-            style={{ flex: 1 }}
-          >
-            Stop
-          </button>
-          <div>Attempts: {count}</div>
-        </div>
-      )}
     </div>
   )
 }

@@ -37,8 +37,10 @@
   max-inline-size: 480px;
 
   &-buttons {
+    margin-top: 1rem;
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     gap: 0.5rem;
   }
 }

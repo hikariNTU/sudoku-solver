@@ -103,10 +103,12 @@ export const SudokuGrid = () => {
               className={clsx('sudoku-cell', {
                 'sudoku-cell__bd-r': j === 2 || j === 5,
                 'sudoku-cell__bd-b': i === 2 || i === 5,
+                'sudoku-cell__edit': isSet,
+                'sudoku-cell__fixed': cell.fixed,
               })}
             >
-              <strong>{cell.val}</strong>
-              {!cell.val && (
+              {cell.val && <strong>{cell.val}</strong>}
+              {!cell.val && cell.note && (
                 <div className="sudoku-cell-note">
                   {numbers.map((val) => (
                     <span key={val}>{notes.has(val) ? val : ''}</span>
