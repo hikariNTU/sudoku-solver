@@ -4,6 +4,7 @@ import { Header, SudokuPage } from '@/pages/sudoku/sudoku'
 import '@/styles/App.css'
 
 import Footer from './components/Footer/Footer'
+import ReloadPrompt from './components/ReloadPrompt/ReloadPrompt'
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <Header />
       <SudokuPage />
       <Footer />
+      <ReloadPrompt />
     </RecoilRoot>
   )
 }

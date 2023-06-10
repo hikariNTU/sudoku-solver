@@ -1,0 +1,43 @@
+.ReloadPrompt-container {
+  padding: 0;
+  margin: 0;
+  width: 0;
+  height: 0;
+}
+.ReloadPrompt-toast {
+  position: fixed;
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  grid-template-areas:
+    'icon message'
+    'icon actions';
+  gap: 1rem;
+  right: 0;
+  bottom: 0;
+  margin: 16px;
+  padding: 12px;
+  border: 1px solid #333;
+  border-radius: 4px;
+  z-index: 100;
+  text-align: left;
+  box-shadow: 2px 3px 9px 0 #000c;
+  background-color: #222;
+}
+.ReloadPrompt-icon {
+  width: auto;
+  grid-area: icon;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #333;
+  border-radius: 4px;
+}
+.ReloadPrompt-toast-message {
+  grid-area: message;
+  margin-bottom: 8px;
+}
+.ReloadPrompt-toast-actions {
+  grid-area: actions;
+  display: flex;
+  justify-content: flex-end;
+}
