@@ -109,8 +109,12 @@ export const SudokuGrid = () => {
         return
       }
       const newBoard = cloneDeep(board)
-      if (toNote && val) {
-        newBoard[i][j].note = toggleNote(newBoard[i][j].note, val)
+      if (toNote) {
+        if (val) {
+          newBoard[i][j].note = toggleNote(newBoard[i][j].note, val)
+        } else {
+          newBoard[i][j].note = undefined
+        }
       } else {
         newBoard[i][j].val = val
         if (isSet) {
@@ -141,7 +145,7 @@ export const SudokuGrid = () => {
               },
             }}
           >
-            {screenPad && !board[i][j].fixed ? (
+            {screenPad && (isSet || !board[i][j].fixed) ? (
               <ScreenPadWrapper>
                 <SudokuCell />
               </ScreenPadWrapper>

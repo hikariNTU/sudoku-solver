@@ -1,3 +1,8 @@
+.numpad-toggle-note{
+  grid-column: 2 / -1;
+  aspect-ratio: unset !important;
+}
+
 .numpad-grid{
   display: grid;
   grid-template-columns: repeat(3, 1fr);

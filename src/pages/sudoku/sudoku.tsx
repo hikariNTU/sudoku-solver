@@ -70,12 +70,9 @@ const EnableBoardEditingSwitch = () => {
 }
 
 const ToggleScreenPad = () => {
-  const [isEdit, setIsEdit] = useRecoilState(isScreenPad)
-  // useKey('e', () => {
-  //   setIsEdit((v) => !v)
-  // })
+  const [a, setA] = useRecoilState(isScreenPad)
   return (
-    <Toggle pressed={isEdit} onPressedChange={setIsEdit}>
+    <Toggle pressed={a} onPressedChange={setA}>
       <MixIcon />
       Screen Pad
     </Toggle>
@@ -88,15 +85,13 @@ const ToggleNote = () => {
     setIsEdit((v) => !v)
   })
   return (
-    <>
-      <Toggle pressed={isEdit} onPressedChange={setIsEdit}>
-        <FileTextIcon />
-        Note (N)
-        <Tooltip content="You can also use Shift key + number or CapsLock to enter notes">
-          <QuestionMarkCircledIcon />
-        </Tooltip>
-      </Toggle>
-    </>
+    <Toggle pressed={isEdit} onPressedChange={setIsEdit}>
+      <FileTextIcon />
+      Note (N)
+      <Tooltip content="You can also use Shift key + number or CapsLock to enter notes">
+        <QuestionMarkCircledIcon />
+      </Tooltip>
+    </Toggle>
   )
 }
 

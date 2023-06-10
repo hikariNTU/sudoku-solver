@@ -6,7 +6,7 @@ export type CellContext = {
   i: number
   j: number
   update: (val: number | undefined) => void
-  updateNote: (val: number) => void
+  updateNote: (val: number | undefined) => void
   cell: BoardCell
   notes: Set<number>
 }

@@ -3,5 +3,10 @@
   flex-direction: column;
   max-width: 1920px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1rem;
+}
+@media screen and (min-width: 960px) {
+  #root {
+    padding: 2rem;
+  }
 }

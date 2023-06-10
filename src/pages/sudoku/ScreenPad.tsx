@@ -1,33 +1,59 @@
 import { PropsWithChildren, useState } from 'react'
-import { useRecoilValue } from 'recoil'
+import { useRecoilState, useRecoilValue } from 'recoil'
 
-import { Cross2Icon } from '@radix-ui/react-icons'
+import { Cross2Icon, FileTextIcon } from '@radix-ui/react-icons'
 import * as Popover from '@radix-ui/react-popover'
+
+import Toggle from '@/components/Toggle/Toggle'
 
 import { useCellContext } from './CellContext'
 import { numbers } from './basic'
 import './screen-pad.scss'
 import { getAvailableValue } from './solver'
-import { sudokuBoardState } from './state'
+import { noteState, sudokuBoardState, sudokuSetBoardState } from './state'
+
+const ToggleNote = () => {
+  const [isEdit, setIsEdit] = useRecoilState(noteState)
+  return (
+    <Toggle className="numpad-toggle-note" pressed={isEdit} onPressedChange={setIsEdit}>
+      <FileTextIcon />
+      Note
+    </Toggle>
+  )
+}
 
 const NumPad = (props: { setOpen: React.Dispatch<React.SetStateAction<boolean>> }) => {
   const board = useRecoilValue(sudokuBoardState)
-  const { i, j, update, cell } = useCellContext()
+  const isEdit = useRecoilValue(sudokuSetBoardState)
+  const isNote = useRecoilValue(noteState)
+  const { i, j, update, updateNote, notes } = useCellContext()
   const updateAndClose: typeof update = (val) => {
-    update(val)
-    props.setOpen(false)
+    if (isNote) {
+      updateNote(val)
+    } else {
+      update(val)
+      props.setOpen(false)
+    }
   }
   const available = getAvailableValue(board, i, j)
-  if (cell.val) {
-    available.add(undefined)
-  }
+
   return (
     <div className="numpad-grid">
-      {[...numbers, undefined].map((n) => (
-        <button key={n} disabled={!available.has(n)} onClick={() => updateAndClose(n)}>
-          {n || <Cross2Icon />}
+      {[...numbers].map((n) => (
+        <button
+          className="Toggle"
+          key={n}
+          disabled={!isNote && !isEdit && !available.has(n)}
+          onClick={() => updateAndClose(n)}
+          data-state={isNote ? (notes.has(n) ? 'on' : 'off') : undefined}
+        >
+          {n}
         </button>
       ))}
+      <button onClick={() => updateAndClose(undefined)}>
+        <Cross2Icon />
+      </button>
+      <ToggleNote />
     </div>
   )
 }
