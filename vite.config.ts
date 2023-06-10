@@ -17,6 +17,7 @@ export default defineConfig({
         short_name: 'SudokuSolver',
         description:
           'Solve Sudoku puzzles with ease on our website! Our solver uses the backtracking algorithm to assign numbers one by one to empty cells. Before assigning a number, it checks whether it is safe to assign.',
+        orientation: 'portrait',
         theme_color: '#222222',
         icons: [
           {
