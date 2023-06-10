@@ -39,6 +39,7 @@ h1 {
 }
 
 button {
+  color: white;
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -49,12 +50,18 @@ button {
   font-weight: 500;
   font-family: inherit;
   background-color: #1a1a1a;
-  cursor: pointer;
   transition: background-color 0.1s;
 }
 
-button:hover {
+button:hover:not(:disabled) {
   background-color: #0c0c0c;
+  cursor: pointer;
+}
+
+button:disabled{
+  background-color: #292929;
+  color: #aaa;
+  cursor: not-allowed;
 }
 
 button:focus,

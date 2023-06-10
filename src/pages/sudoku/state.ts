@@ -45,7 +45,7 @@ function createBoard(data: (number | string | undefined)[][]): Board {
 function readBoardFromText(data: string): Board {
   const cells = data.split('')
 
-  return createBoard(indices.map((j) => indices.map((i) => cells[i * 9 + j])))
+  return createBoard(indices.map((i) => indices.map((j) => cells[i * 9 + j])))
 }
 
 export const sudokuBoardState = atom({
