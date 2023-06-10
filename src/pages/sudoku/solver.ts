@@ -15,12 +15,10 @@ function validateRange(board: Board, wheres: [number, number][]) {
   return true
 }
 
-export function isValidValue(board: Board, i: number, j: number, val: number) {
-  const rowSafe = indices.every((x) => board[x][j].val !== val)
-  const colSafe = indices.every((x) => board[i][x].val !== val)
+const getBlockRange = (i: number, j: number) => {
   const I = i - (i % 3)
   const J = j - (j % 3)
-  const blockSafe = [
+  return [
     [I, J],
     [I + 1, J],
     [I + 2, J],
@@ -30,8 +28,26 @@ export function isValidValue(board: Board, i: number, j: number, val: number) {
     [I, J + 2],
     [I + 1, J + 2],
     [I + 2, J + 2],
-  ].every(([x, y]) => board[x][y].val !== val)
+  ]
+}
+
+export function isValidValue(board: Board, i: number, j: number, val: number) {
+  const rowSafe = indices.every((x) => board[x][j].val !== val)
+  const colSafe = indices.every((x) => board[i][x].val !== val)
+  const blockSafe = getBlockRange(i, j).every(([x, y]) => board[x][y].val !== val)
   return rowSafe && colSafe && blockSafe
+}
+
+export function getAvailableValue(board: Board, i: number, j: number) {
+  const available = new Set<number | undefined>(numbers)
+  for (const x of indices) {
+    available.delete(board[x][j].val)
+    available.delete(board[i][x].val)
+  }
+  for (const [a, b] of getBlockRange(i, j)) {
+    available.delete(board[a][b].val)
+  }
+  return available
 }
 
 function getNextEmpty(board: Board) {

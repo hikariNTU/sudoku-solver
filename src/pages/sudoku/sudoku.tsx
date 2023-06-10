@@ -7,6 +7,7 @@ import {
   QuestionMarkCircledIcon,
   TrashIcon,
   EnterIcon,
+  MixIcon,
 } from '@radix-ui/react-icons'
 import { useKey } from 'react-use'
 
@@ -16,7 +17,13 @@ import Tooltip from '@/components/Tooltip/Tooltip'
 
 import { SolverPanel } from './SolverPanel'
 import { SudokuGrid } from './SudokuGrid'
-import { compactBoardSelector, noteState, sudokuBoardState, sudokuSetBoardState } from './state'
+import {
+  compactBoardSelector,
+  isScreenPad,
+  noteState,
+  sudokuBoardState,
+  sudokuSetBoardState,
+} from './state'
 import './sudoku.scss'
 
 const ClearAll = () => {
@@ -58,6 +65,19 @@ const EnableBoardEditingSwitch = () => {
     <Toggle pressed={isEdit} onPressedChange={setIsEdit}>
       <Pencil2Icon />
       Edit Board (E)
+    </Toggle>
+  )
+}
+
+const ToggleScreenPad = () => {
+  const [isEdit, setIsEdit] = useRecoilState(isScreenPad)
+  // useKey('e', () => {
+  //   setIsEdit((v) => !v)
+  // })
+  return (
+    <Toggle pressed={isEdit} onPressedChange={setIsEdit}>
+      <MixIcon />
+      Screen Pad
     </Toggle>
   )
 }
@@ -117,6 +137,7 @@ export const SudokuPage = () => {
   return (
     <div className="sudoku">
       <div className="actions">
+        <ToggleScreenPad />
         <ToggleNote />
         <EnableBoardEditingSwitch />
         <ClearAll />

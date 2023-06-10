@@ -87,3 +87,8 @@ export const compactBoardSelector = selector({
     set(sudokuBoardState, readBoardFromText(data))
   },
 })
+
+export const isScreenPad = atom({
+  key: 'screen-pad',
+  default: typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches,
+})
