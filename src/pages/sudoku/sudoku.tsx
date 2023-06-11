@@ -15,6 +15,7 @@ import Dialog from '@/components/Dialog/Dialog'
 import Toggle from '@/components/Toggle/Toggle'
 import Tooltip from '@/components/Tooltip/Tooltip'
 
+import PuzzleSelector from './PuzzleSelector'
 import { SolverPanel } from './SolverPanel'
 import { SudokuGrid } from './SudokuGrid'
 import {
@@ -136,6 +137,7 @@ export const SudokuPage = () => {
         <ToggleNote />
         <EnableBoardEditingSwitch />
         <ClearAll />
+        <PuzzleSelector />
         <BoardReader />
       </div>
       <SudokuGrid />

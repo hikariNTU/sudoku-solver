@@ -73,3 +73,12 @@
     grid-area: desc;
   }
 }
+
+.puzzles-list{
+  display: flex;
+  flex-direction: column;
+  gap: 0.2em;
+  > button {
+    padding: 0.8em 1.2em;
+  }
+}
