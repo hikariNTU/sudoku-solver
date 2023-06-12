@@ -92,3 +92,23 @@ export const isScreenPad = atom({
   key: 'screen-pad',
   default: typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches,
 })
+
+export const DialogImportState = atom({
+  key: 'dialog-import',
+  default: false,
+})
+
+export const DialogSelectPuzzleState = atom({
+  key: 'dialog-select-puzzle',
+  default: false,
+})
+
+export const showSolverAtom = atom({
+  key: 'show-solver',
+  default: true,
+})
+
+export const disableInvalidAtom = atom({
+  key: 'disable-invalid',
+  default: true,
+})

@@ -10,19 +10,21 @@ const Dialog = (
     title: string
     description?: string | JSX.Element
     content: JSX.Element
+    open?: boolean
+    setOpen?: React.Dispatch<boolean>
   },
 ) => {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(props.open ?? false)
   const ctx = useMemo<DialogCtx>(
     () => ({
-      setOpen,
+      setOpen: props.setOpen ?? setOpen,
     }),
-    [setOpen],
+    [setOpen, props.setOpen],
   )
 
   return (
     <dialogCtx.Provider value={ctx}>
-      <D.Root open={open} onOpenChange={setOpen}>
+      <D.Root open={props.open ?? open} onOpenChange={ctx.setOpen}>
         <D.Trigger asChild>{props.children}</D.Trigger>
         <D.Portal>
           <D.Overlay className="DialogOverlay" />

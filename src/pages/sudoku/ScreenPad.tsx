@@ -10,7 +10,7 @@ import { useCellContext } from './CellContext'
 import { numbers } from './basic'
 import './screen-pad.scss'
 import { getAvailableValue } from './solver'
-import { noteState, sudokuBoardState, sudokuSetBoardState } from './state'
+import { disableInvalidAtom, noteState, sudokuBoardState, sudokuSetBoardState } from './state'
 
 const ToggleNote = () => {
   const [isEdit, setIsEdit] = useRecoilState(noteState)
@@ -23,6 +23,7 @@ const ToggleNote = () => {
 }
 
 const NumPad = (props: { setOpen: React.Dispatch<React.SetStateAction<boolean>> }) => {
+  const disableInvalid = useRecoilValue(disableInvalidAtom)
   const board = useRecoilValue(sudokuBoardState)
   const isEdit = useRecoilValue(sudokuSetBoardState)
   const isNote = useRecoilValue(noteState)
@@ -43,7 +44,7 @@ const NumPad = (props: { setOpen: React.Dispatch<React.SetStateAction<boolean>> 
         <button
           className="Toggle"
           key={n}
-          disabled={!isNote && !isEdit && !available.has(n)}
+          disabled={!isNote && !isEdit && disableInvalid && !available.has(n)}
           onClick={() => updateAndClose(n)}
           data-state={isNote ? (notes.has(n) ? 'on' : 'off') : undefined}
         >

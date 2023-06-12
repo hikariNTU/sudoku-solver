@@ -7,9 +7,11 @@
     background-color: #333;
   }
 
-  &[data-state="on"]{
+  &[data-state="on"] {
     background-color: black;
     color: rgb(93, 131, 255);
+    outline: 2px solid #6f80a4;
+
     &:hover {
       background-color: #111;
     }

@@ -8,7 +8,7 @@ import { sleep } from '@/utils'
 
 import { Board } from './basic'
 import { advanceSolver, solve } from './solver'
-import { solverSleepState, sudokuBoardState } from './state'
+import { showSolverAtom, solverSleepState, sudokuBoardState } from './state'
 
 let solveId = 0
 
@@ -26,11 +26,16 @@ const ProgressiveSwitch = () => {
 }
 
 export const SolverPanel = () => {
+  const showSolver = useRecoilValue(showSolverAtom)
   const [board, setBoard] = useRecoilState(sudokuBoardState)
   const [isAdvanced, setIsAdvanced] = useState(false)
   const sleepTime = useRecoilValue(solverSleepState)
   const [count, setCount] = useState(0)
   const [solving, setSolving] = useState(false)
+
+  if (!showSolver) {
+    return null
+  }
 
   const solveBoard = async () => {
     const solver = isAdvanced ? advanceSolver : solve

@@ -1,19 +1,20 @@
-import { useSetRecoilState } from 'recoil'
+import { useRecoilState, useSetRecoilState } from 'recoil'
 
+import { DropdownMenuItem } from '@radix-ui/react-dropdown-menu'
 import { ListBulletIcon } from '@radix-ui/react-icons'
 import { useAsync } from 'react-use'
 
 import Dialog from '@/components/Dialog/Dialog'
 import { useDialogContext } from '@/components/Dialog/dialogCtx'
 
-import { compactBoardSelector } from './state'
+import { DialogSelectPuzzleState, compactBoardSelector } from '../state'
 
 const Puzzles = () => {
   const {
     loading,
     error,
     value: puzzles,
-  } = useAsync(async () => (await import('./puzzles0.sdm?raw')).default)
+  } = useAsync(async () => (await import('../puzzles0.sdm?raw')).default)
   const setBoard = useSetRecoilState(compactBoardSelector)
   const { setOpen } = useDialogContext()
 
@@ -51,15 +52,25 @@ const Desc = () => (
   </p>
 )
 
-const PuzzleSelector = () => {
+export const PuzzleSelector = () => {
+  const [open, setOpen] = useRecoilState(DialogSelectPuzzleState)
   return (
-    <Dialog title="Select Puzzles" description={<Desc />} content={<Puzzles />}>
-      <button>
-        <ListBulletIcon />
-        Select Puzzles
-      </button>
-    </Dialog>
+    <Dialog
+      title="Select Puzzles"
+      description={<Desc />}
+      content={<Puzzles />}
+      {...{ open, setOpen }}
+    />
   )
 }
 
-export default PuzzleSelector
+export const PuzzleSelectorItem = () => {
+  const setOpen = useSetRecoilState(DialogSelectPuzzleState)
+
+  return (
+    <DropdownMenuItem className="DropdownMenuItem" onClick={() => setOpen(true)}>
+      <ListBulletIcon className="DropdownMenuItemIndicator" />
+      Select Puzzles
+    </DropdownMenuItem>
+  )
+}
