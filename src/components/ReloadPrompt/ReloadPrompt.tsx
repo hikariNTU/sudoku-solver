@@ -3,6 +3,8 @@ import { useRegisterSW } from 'virtual:pwa-register/react'
 
 import './reload-prompt.css'
 
+const intervalMS = 120 * 1000
+
 function ReloadPrompt() {
   const {
     offlineReady: [offlineReady, setOfflineReady],
@@ -11,6 +13,14 @@ function ReloadPrompt() {
   } = useRegisterSW({
     onRegistered(r) {
       console.log('SW Registered: ' + r)
+      r &&
+        setInterval(() => {
+          if (!(!r.installing && navigator)) return
+
+          if ('connection' in navigator && !navigator.onLine) return
+
+          r.update()
+        }, intervalMS)
     },
     onRegisterError(error) {
       console.log('SW registration error', error)
