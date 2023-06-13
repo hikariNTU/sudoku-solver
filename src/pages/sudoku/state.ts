@@ -136,5 +136,5 @@ export const disableInvalidAtom = atom({
 export const noteHighContrastAtom = atom({
   key: 'note-high-contrast',
   default: false,
-  effects: [boolStore('note-high-contrast', true)],
+  effects: [boolStore('note-high-contrast', false)],
 })
