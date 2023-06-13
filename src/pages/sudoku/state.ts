@@ -1,11 +1,29 @@
 import { DefaultValue, atom, selector } from 'recoil'
 
+import {  bool, withDefault } from '@recoiljs/refine'
+import { syncEffect } from 'recoil-sync'
+
 import { Board, indices } from './basic'
 import { TB } from './test'
 
 export function notesHas(note: number | undefined, val: number) {
   return (note || 0).toString(2)[val - 1] === '1'
 }
+
+const boolStore = (key: string, defaultValue: boolean) =>
+  syncEffect<boolean>({
+    storeKey: 'local-storage',
+    refine: withDefault(bool(), defaultValue),
+    syncDefault: true,
+    read: ({ read }) => {
+      const raw = read(key) as string | undefined
+      if(!raw) return defaultValue
+      return JSON.parse(raw) as boolean
+    },
+    write({ write }, val) {
+      write(key, val)
+    },
+  })
 
 export function parseNotes(note = 0) {
   return new Set(
@@ -106,14 +124,17 @@ export const DialogSelectPuzzleState = atom({
 export const showSolverAtom = atom({
   key: 'show-solver',
   default: true,
+  effects: [boolStore('show-solver', true)],
 })
 
 export const disableInvalidAtom = atom({
   key: 'disable-invalid',
   default: true,
+  effects: [boolStore('disable-invalid', true)],
 })
 
 export const noteHighContrastAtom = atom({
   key: 'note-high-contrast',
   default: false,
+  effects: [boolStore('note-high-contrast', true)],
 })

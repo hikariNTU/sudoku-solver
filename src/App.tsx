@@ -5,14 +5,17 @@ import '@/styles/App.css'
 
 import Footer from './components/Footer/Footer'
 import ReloadPrompt from './components/ReloadPrompt/ReloadPrompt'
+import { SyncWithLocalStorage } from './components/SyncStore/SyncStorageStore'
 
 function App() {
   return (
     <RecoilRoot>
-      <Header />
-      <SudokuPage />
-      <Footer />
-      <ReloadPrompt />
+      <SyncWithLocalStorage>
+        <Header />
+        <SudokuPage />
+        <Footer />
+        <ReloadPrompt />
+      </SyncWithLocalStorage>
     </RecoilRoot>
   )
 }
