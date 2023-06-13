@@ -10,7 +10,7 @@ export default defineConfig({
   plugins: [
     react(),
     VitePWA({
-      registerType: 'autoUpdate',
+      registerType: 'prompt',
       includeAssets: ['sudoku.svg', 'sudoku@1x.png', 'sudoku@2x.png'],
       manifest: {
         name: 'Sudoku Solver - HikariNTU',
