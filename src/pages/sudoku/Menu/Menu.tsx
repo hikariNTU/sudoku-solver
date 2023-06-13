@@ -10,6 +10,7 @@ import {
   DialogImportState,
   compactBoardSelector,
   disableInvalidAtom,
+  noteHighContrastAtom,
   showSolverAtom,
   sudokuBoardState,
   sudokuSetBoardState,
@@ -120,6 +121,7 @@ const BoardReaderItem = () => {
 const Menu = () => {
   const [showSolver, setShowSolver] = useRecoilState(showSolverAtom)
   const [disableInvalid, setDisableInvalid] = useRecoilState(disableInvalidAtom)
+  const [noteHighContrast, setNoteHighContrast] = useRecoilState(noteHighContrastAtom)
 
   return (
     <>
@@ -158,6 +160,14 @@ const Menu = () => {
             >
               <Check />
               Disable Invalid Input
+            </DropdownMenu.CheckboxItem>
+            <DropdownMenu.CheckboxItem
+              className="DropdownMenuCheckboxItem"
+              checked={noteHighContrast}
+              onCheckedChange={setNoteHighContrast}
+            >
+              <Check />
+              Note High Contrast
             </DropdownMenu.CheckboxItem>
           </DropdownMenu.Content>
         </DropdownMenu.Portal>

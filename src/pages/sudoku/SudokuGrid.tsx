@@ -7,6 +7,7 @@ import { cloneDeep } from 'lodash'
 import { isValidValue } from '@/pages/sudoku/solver'
 import {
   isScreenPad,
+  noteHighContrastAtom,
   noteState,
   parseNotes,
   sudokuBoardState,
@@ -97,6 +98,7 @@ const SudokuCell = forwardRef<HTMLButtonElement, Record<never, never>>((props, r
 SudokuCell.displayName = 'SudokuCell'
 
 export const SudokuGrid = () => {
+  const noteHighContrast = useRecoilValue(noteHighContrastAtom)
   const screenPad = useRecoilValue(isScreenPad)
   const [board, setBoard] = useRecoilState(sudokuBoardState)
   const isSet = useRecoilValue(sudokuSetBoardState)
@@ -127,7 +129,12 @@ export const SudokuGrid = () => {
   )
 
   return (
-    <div role="application" className="sudoku-grid">
+    <div
+      role="application"
+      className={clsx('sudoku-grid', {
+        'sudoku-grid--note-high-contrast': noteHighContrast,
+      })}
+    >
       {indices.map((i) =>
         indices.map((j) => (
           <cellContext.Provider
