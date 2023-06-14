@@ -15,7 +15,7 @@ import './sudoku.scss'
 const ToggleScreenPad = () => {
   const [a, setA] = useRecoilState(isScreenPad)
   return (
-    <Toggle pressed={a} onPressedChange={setA}>
+    <Toggle style={{ marginLeft: 'auto' }} pressed={a} onPressedChange={setA}>
       <MixIcon />
       Screen Pad
     </Toggle>
