@@ -19,6 +19,7 @@
 html {
   color: #eee;
   background-color: #242424;
+  overscroll-behavior: none;
 }
 
 a {
